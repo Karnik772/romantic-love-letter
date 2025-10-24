@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>50 Reasons Why I Love You</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Animated background hearts */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
+    }
+    
+    /* Photo stickers with Polaroid style */
+    .photo-stickers {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    @keyframes stickerFloat {
+      0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+      50% { transform: translateY(-15px) rotate(calc(var(--rotation) + 3deg)); }
+    }
+    
+    .photo-sticker {
+      position: absolute;
+      background: white;
+      padding: 10px;
+      padding-bottom: 35px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      border-radius: 3px;
+      animation: stickerFloat 4s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+    
+    .photo-sticker:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 10;
+    }
+    
+    .photo-sticker img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+      border-radius: 2px;
+    }
+    
+    /* Position stickers around the page symmetrically */
+    .sticker-1 {
+      top: 10%;
+      left: 5%;
+      --rotation: -8deg;
+      transform: rotate(-8deg);
+    }
+    
+    .sticker-2 {
+      top: 10%;
+      right: 5%;
+      --rotation: 8deg;
+      transform: rotate(8deg);
+    }
+    
+    .sticker-3 {
+      top: 35%;
+      left: 3%;
+      --rotation: 12deg;
+      transform: rotate(12deg);
+    }
+    
+    .sticker-4 {
+      top: 35%;
+      right: 3%;
+      --rotation: -12deg;
+      transform: rotate(-12deg);
+    }
+    
+    .sticker-5 {
+      top: 60%;
+      left: 4%;
+      --rotation: -6deg;
+      transform: rotate(-6deg);
+    }
+    
+    .sticker-6 {
+      top: 60%;
+      right: 4%;
+      --rotation: 6deg;
+      transform: rotate(6deg);
+    }
+    
+    .sticker-7 {
+      bottom: 10%;
+      left: 8%;
+      --rotation: 10deg;
+      transform: rotate(10deg);
+    }
+    
+    .sticker-8 {
+      bottom: 10%;
+      right: 8%;
+      --rotation: -10deg;
+      transform: rotate(-10deg);
+    }
+    
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+      opacity: 0.3;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Hero section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      margin-bottom: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .hero-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      object-fit: cover;
+      border: 5px solid #c94f6d;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    
+    .hero-image:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+    
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #c94f6d, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .intro {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #764ba2;
+      margin-top: 1rem;
+    }
+    
+    /* Reasons grid */
+    .reasons-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .reason-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .reason-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 1);
+    }
+    
+    .reason-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      color: white;
+    }
+    
+    .reason-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .inside-joke {
+      font-weight: bold;
+      color: #f5576c;
+      text-shadow: none;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin-top: 3rem;
+      font-size: 1.3rem;
+      font-style: italic;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: #764ba2;
+    }
+    
+    footer small {
+      color: #c94f6d;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .hero { padding: 2rem 1rem; }
+      .reasons-container { grid-template-columns: 1fr; }
+      .photo-sticker { display: none; }
+      .photo-stickers { display: none; }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1200px) {
+      .photo-sticker img { width: 120px; height: 120px; }
+      .sticker-3, .sticker-4, .sticker-7, .sticker-8 { display: none; }
+    }
+
+        /* Letter Overlay Styles */
+    .letter-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+    }
+    
+    .letter-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    .envelope {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        background: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
+    .envelope:hover {
+        transform: scale(1.05);
+    }
+    
+    .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 100px solid #c94f6d;
+        transform-origin: top center;
+        transition: transform 0.6s ease;
+    }
+    
+    .envelope.opening .envelope-flap {
+        transform: rotateX(180deg);
+    }
+    
+    .envelope-body {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border-radius: 0 0 10px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    
+    .envelope-heart {
+        font-size: 3rem;
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    
+    .envelope-text {
+        margin-top: 10px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.5rem;
+        color: #764ba2;
+        text-align: center;
+    }
+    
+    .tap-hint {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    /* Exploding emojis */
+    .emoji-explosion {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        pointer-events: none;
+        z-index: 10000;
+    }
+    
+    .emoji {
+        position: absolute;
+        font-size: 2rem;
+        animation: explode 1.5s ease-out forwards;
+    }
+    
+    @keyframes explode {
+        0% {
+            opacity: 1;
+            transform: translate(0, 0) scale(0);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translate(var(--tx), var(--ty)) scale(1) rotate(360deg);
+        }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+      <!-- Letter Overlay -->
+    <div class="letter-overlay" id="letterOverlay">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+                <div class="envelope-heart">💌</div>
+                <div class="envelope-text">Tap to Open</div>
+            </div>
+        </div>
+        <div class="tap-hint">👆 Click the envelope</div>
+    </div>
+
+  <!-- Photo Stickers positioned around page -->
+  <div class="photo-stickers">
+    <div class="photo-sticker sticker-1">
+      <img src="Screenshot%202025-10-24%20032557.png" alt="Memory">
+    </div>
+    <div class="photo-sticker sticker-2">
+      <img src="Screenshot%202025-10-24%20040726.png" alt="Love">
+    </div>
+    <div class="photo-sticker sticker-3">
+      <img src="Screenshot%202025-10-24%20040732.png" alt="Together">
+    </div>
+    <div class="photo-sticker sticker-4">
+      <img src="Screenshot%202025-10-24%20040737.png" alt="Moments">
+    </div>
+    <div class="photo-sticker sticker-5">
+      <img src="Screenshot%202025-10-24%20040743.png" alt="Happy">
+    </div>
+    <div class="photo-sticker sticker-6">
+      <img src="Screenshot%202025-10-24%20040749.png" alt="Smile">
+    </div>
+    <div class="photo-sticker sticker-7">
+      <img src="Screenshot%202025-10-24%20042247.png" alt="Us">
+    </div>
+    <div class="photo-sticker sticker-8">
+      <img src="Screenshot%202025-10-24%20042331.png" alt="Forever">
+    </div>
+  </div>
+
+  <!-- Animated hearts background -->
+  <div class="hearts-bg">
+    <div class="heart" style="left: 10%; top: 20%; animation-delay: 0s;">❤️</div>
+    <div class="heart" style="left: 80%; top: 30%; animation-delay: 1s;">💕</div>
+    <div class="heart" style="left: 20%; top: 70%; animation-delay: 2s;">💖</div>
+    <div class="heart" style="left: 70%; top: 60%; animation-delay: 1.5s;">💗</div>
+    <div class="heart" style="left: 50%; top: 40%; animation-delay: 0.5s;">💝</div>
+  </div>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <img src="Screenshot%202025-10-24%20050631.png" alt="Love" class="hero-image">
+      <h1>50 Reasons Why I Love You</h1>
+      <p class="intro">A little love letter for our first year together ❤️</p>
+    </div>
+
+    <!-- Reasons Grid -->
+    <div class="reasons-container">
+      <div class="reason-card"><div class="reason-number">1</div><div class="reason-text">You are my best friend as well as my soulmate.</div></div>
+      <div class="reason-card"><div class="reason-number">2</div><div class="reason-text">You make me feel listened to.</div></div>
+      <div class="reason-card"><div class="reason-number">3</div><div class="reason-text">You make me feel I matter.</div></div>
+      <div class="reason-card"><div class="reason-number">4</div><div class="reason-text">You changed yourself when I was anxious or insecure even if you weren't okay with it.</div></div>
+      <div class="reason-card"><div class="reason-number">5</div><div class="reason-text">You deal with my anxieties and insecurities even if it means sacrificing part of your happiness.</div></div>
+      <div class="reason-card"><div class="reason-number">6</div><div class="reason-text">We always come back stronger after a fight.</div></div>
+      <div class="reason-card"><div class="reason-number">7</div><div class="reason-text">The way you hug me.</div></div>
+      <div class="reason-card"><div class="reason-number">8</div><div class="reason-text">I love the way you crave me.</div></div>
+      <div class="reason-card"><div class="reason-number">9</div><div class="reason-text">Our makeouts.</div></div>
+      <div class="reason-card"><div class="reason-number">10</div><div class="reason-text">How desperate you get when you're around me in real life.</div></div>
+      <div class="reason-card"><div class="reason-number">11</div><div class="reason-text">The way we bond when we're together.</div></div>
+      <div class="reason-card"><div class="reason-number">12</div><div class="reason-text">How we aren't on our phones but just in the moment (except when recording videos!).</div></div>
+      <div class="reason-card"><div class="reason-number">13</div><div class="reason-text">The way you laugh at my silly jokes 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">14</div><div class="reason-text">When I'm feeling low, you try to cheer me up.</div></div>
+      <div class="reason-card"><div class="reason-number">15</div><div class="reason-text">The way you remember small details and conversations from our past — it makes me blush.</div></div>
+      <div class="reason-card"><div class="reason-number">16</div><div class="reason-text">The way you forced me to take my medicines when I was sick by tempting me with dudes 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">17</div><div class="reason-text">How you motivate me to study when I feel low.</div></div>
+      <div class="reason-card"><div class="reason-number">18</div><div class="reason-text">You listen to me whenever I need to vent, even until you are exhausted.</div></div>
+      <div class="reason-card"><div class="reason-number">19</div><div class="reason-text">The way you get happy by my happiness and sad when I'm sad — it's so cute 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">20</div><div class="reason-text">The way you start glowing when you're around me.</div></div>
+      <div class="reason-card"><div class="reason-number">21</div><div class="reason-text">I love the way you act like a kid around me — it makes me feel so special that you feel safe with me 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">22</div><div class="reason-text">The way you twerk — ehem, and all that, ehem ehem.</div></div>
+      <div class="reason-card"><div class="reason-number">23</div><div class="reason-text">The way when I tell you something that bothers me, you try to take care of it 😭 — I love it.</div></div>
+      <div class="reason-card"><div class="reason-number">24</div><div class="reason-text">The way you get on your toes to kiss me — obviously gotta love it 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">25</div><div class="reason-text">Our inside jokes, especially:</div></div>
+      <div class="reason-card"><div class="reason-number">26</div><div class="reason-text inside-joke">"Who would wanna go away from you?" — because truly, who would?</div></div>
+      <div class="reason-card"><div class="reason-number">27</div><div class="reason-text inside-joke">You always notice little things and make it special.</div></div>
+      <div class="reason-card"><div class="reason-number">28</div><div class="reason-text">Whatever happens, whatever tea you get, you share it with me first.</div></div>
+      <div class="reason-card"><div class="reason-number">29</div><div class="reason-text">The way you look at me when we're together.</div></div>
+      <div class="reason-card"><div class="reason-number">30</div><div class="reason-text">The way you come to me with gossips 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">31</div><div class="reason-text">I love the fact I'm your go-to person.</div></div>
+      <div class="reason-card"><div class="reason-number">32</div><div class="reason-text">Even when you easily get frustrated, you try to control it with me.</div></div>
+      <div class="reason-card"><div class="reason-number">33</div><div class="reason-text">The way how we are so different yet you try to make changes for me so I feel safe — I'm really grateful for that; it means a lot to me.</div></div>
+      <div class="reason-card"><div class="reason-number">34</div><div class="reason-text">The way when you're around me, I literally feel like my heart is skipping a beat — that feeling you give me when we're together, I love it so much 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">35</div><div class="reason-text">I love how when I win something or achieve something, you support me and cheer so loud — it's so cute how you're happier than I am for my wins.</div></div>
+      <div class="reason-card"><div class="reason-number">36</div><div class="reason-text">Your willingness to make this work — how you changed from not trying at all to trying your best for a better future for us, even college stuff; it means a lot to me.</div></div>
+      <div class="reason-card"><div class="reason-number">37</div><div class="reason-text">The way you want to capture all our moments on video to revisit — one of the best things we've done, even if we're joking about it 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">38</div><div class="reason-text">Your touch — from a little touch to that craving of merging skins, it's never enough but I love it.</div></div>
+      <div class="reason-card"><div class="reason-number">39</div><div class="reason-text">Our hugs feel so safe in your arms; I love you so much.</div></div>
+      <div class="reason-card"><div class="reason-number">40</div><div class="reason-text">The way you appreciate my efforts (even if sometimes you ignore them), but you try to make me feel appreciated.</div></div>
+      <div class="reason-card"><div class="reason-number">41</div><div class="reason-text">Being so different from each other yet adapting and coming to a mutual ground so both of us feel safe — my favorite thing growing together while respecting feelings.</div></div>
+      <div class="reason-card"><div class="reason-number">42</div><div class="reason-text">Getting mad at me but always forgiving each other and bonding well after fights — coming back stronger from worse things.</div></div>
+      <div class="reason-card"><div class="reason-number">43</div><div class="reason-text">Trying to surprise me — how you tried your best to make my birthday feel special even though I never celebrated it or got excited for it; I'm sorry if I messed up 😔.</div></div>
+      <div class="reason-card"><div class="reason-number">44</div><div class="reason-text">The way we bully and love each other — such a unique love language that's so cute.</div></div>
+      <div class="reason-card"><div class="reason-number">45</div><div class="reason-text">How you told your friends about me and simp on me in the early stage — those chats were adorable 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">46</div><div class="reason-text">The way you bring back things from the past you love, like that lizard thingy — so cute 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">47</div><div class="reason-text">You respecting my feelings even after differences — I love it 😭.</div></div>
+      <div class="reason-card"><div class="reason-number">48</div><div class="reason-text">The way you match my freak — we're both so horny for each other.</div></div>
+      <div class="reason-card"><div class="reason-number">49</div><div class="reason-text">😭 You lost your v card at your birthday — hehe, yes, obviously I love that.</div></div>
+      <div class="reason-card"><div class="reason-number">50</div><div class="reason-text">You feeling safe enough to be okay having sex with me and sharing intimate things — it means a lot to me 😭.</div></div>
+    </div>
+
+    <footer>
+      Here's to us — from Nexus to forever ❤️
+      <br><br>
+      <small>Our late-night talks — I love and miss them so much.<br>
+      How quickly we bonded and got okay with each other — from strangers to lovers like a perfect story.</small>
+    </footer>
+  </div
+    
+    <script>
+          // Letter Overlay Animation 
+            document.addEventListener('DOMContentLoaded', function() {
+          
+    const letterOverlay = document.getElementById('letterOverlay');
+    const envelope = document.getElementById('envelope');
+    
+    envelope.addEventListener('click', function() {
+        // Add opening animation
+        envelope.classList.add('opening');
+        
+        // Create emoji explosion
+        setTimeout(() => {
+            createEmojiExplosion();
+            
+            // Hide overlay after explosion
+            setTimeout(() => {
+                letterOverlay.classList.add('hidden');
+                setTimeout(() => {
+                    letterOverlay.style.display = 'none';
+                }, 500);
+            }, 1500);
+        }, 600);
+    });
+    
+    function createEmojiExplosion() {
+        const emojis = ['💋', '😘', '💖', '💕', '💗', '💝', '❤️', '💌', '💓', '💞', '💟', '❣️', '😍', '😘', '🥰'];
+        const explosionContainer = document.createElement('div');
+        explosionContainer.className = 'emoji-explosion';
+        document.body.appendChild(explosionContainer);
+        
+        // Create 30 emojis
+        for (let i = 0; i < 30; i++) {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Random direction
+            const angle = (Math.random() * 360) * (Math.PI / 180);
+            const distance = 150 + Math.random() * 200;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            emoji.style.setProperty('--tx', `${tx}px`);
+            emoji.style.setProperty('--ty', `${ty}px`);
+            emoji.style.animationDelay = `${Math.random() * 0.2}s`;
+            
+            explosionContainer.appendChild(emoji);
+        }
+        
+        // Remove explosion container after animation
+        setTimeout(() => {
+            explosionContainer.remove();
+        }, 2000);
+    }
+
+
+          }); // End DOMContentLoaded
+
+    // Add click effect to reason cards
+    const cards = document.querySelectorAll('.reason-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Add a pulse animation
+            this.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-5px)';
+            }, 200);
+            
+            // Create heart animation
+            const heart = document.createElement('div');
+            heart.textContent = '💖';
+            heart.style.position = 'absolute';
+            heart.style.fontSize = '2rem';
+            heart.style.animation = 'heartFloat 1s ease-out forwards';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.pointerEvents = 'none';
+            this.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 1000);
+        });
+        
+        // Add hover sound effect indication
+        card.addEventListener('mouseenter', function() {
+            const number = this.querySelector('.reason-number');
+            number.style.transform = 'rotate(360deg)';
+            number.style.transition = 'transform 0.6s ease';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const number = this.querySelector('.reason-number');
+            number.style.transform = 'rotate(0deg)';
+        });
+    });
+    
+    // Add extra CSS for heart animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes heartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-30px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.5);
+            }
+        }
+        
+        .reason-card {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            z-index: -1;
+        }
+        
+        .reason-card:hover::before {
+            opacity: 0.1;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Add floating hearts randomly
+    setInterval(() => {
+        if (Math.random() > 0.7) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            document.querySelector('.hearts-bg').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 3000);
+        }
+    }, 2000);
+</script>>
+</body>
+</html>
